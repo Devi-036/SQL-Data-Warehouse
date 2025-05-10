@@ -1,25 +1,22 @@
 /*
 ===============================================================================
-Stored Procedure: Load Bronze Layer (Source -> Bronze)
+Stored Procedure: Load Silver Layer (Bronze -> Silver)
 ===============================================================================
 Script Purpose:
-    This stored procedure loads data into the 'bronze' schema from external CSV files. 
-    It performs the following actions:
-    - Truncates the bronze tables before loading data.
-    - Uses the `BULK INSERT` command to load data from csv Files to bronze tables.
-
+    This stored procedure performs the ETL (Extract, Transform, Load) process to 
+    populate the 'silver' schema tables from the 'bronze' schema.
+	Actions Performed:
+		- Truncates Silver tables.
+		- Inserts transformed and cleansed data from Bronze into Silver tables.
+		
 Parameters:
     None. 
 	  This stored procedure does not accept any parameters or return any values.
 
 Usage Example:
-    EXEC bronze.load_bronze;
+    EXEC Silver.load_silver;
 ===============================================================================
 */
-
---INSERT BRONZE BULK DATA
-
-
 
 CREATE OR ALTER PROCEDURE bronze.load_bronze AS
 BEGIN
@@ -67,8 +64,6 @@ BEGIN
 		PRINT '>> Load duration:' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + 'seconds';
 		PRINT '>> ----------------------------';
 
-
-
 		SET @start_time=GETDATE();
 		PRINT '>>> Truncating table :bronze.crm_sales_details'
 		TRUNCATE TABLE bronze.crm_sales_details;
@@ -85,8 +80,6 @@ BEGIN
 		PRINT '>> Load duration:' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + 'seconds';
 		PRINT '>> ----------------------------';
 
-
-		--ERP
 	
 		PRINT '------------------------------------------------------------------';
 		PRINT 'Loading ERP Tables';
