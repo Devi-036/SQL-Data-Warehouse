@@ -1,4 +1,13 @@
---CRAETE SQL DDL scripts for all CSV files in the ERP System.
+/*
+===============================================================================
+DDL Script: Create Silver Tables
+===============================================================================
+Script Purpose:
+    This script creates tables in the 'silver' schema, dropping existing tables 
+    if they already exist.
+	  Run this script to re-define the DDL structure of 'bronze' Tables
+===============================================================================
+*/
 use DataWarehouse;
 
 IF OBJECT_ID ('silver.crm_cst_info', 'U') IS NOT NULL
